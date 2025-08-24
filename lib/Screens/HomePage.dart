@@ -1,3 +1,4 @@
+import 'package:expense_tracker/Screens/addexpense.dart';
 import 'package:expense_tracker/Style/Style.dart';
 import 'package:expense_tracker/Widgets/expenseList.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class Homepage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Color(0xFF4CAF50),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SafeArea(
@@ -23,6 +24,13 @@ class Homepage extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.black,
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>Addexpense()));
+          },
+          child: Icon(Icons.add,color: Colors.white,),
         ),
       ),
     );
@@ -66,15 +74,18 @@ class Homepage extends StatelessWidget {
       children: [
         TabBar(
           // indicator: BoxDecoration(),
-          indicatorColor:Colors.black,
-          labelStyle: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.bold),
+          indicatorColor: Colors.black,
+          labelStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
           tabs: [
-            
-            Tab(text: "Expense List",),
+            Tab(text: "Expense List"),
             Tab(text: "Total List"),
           ],
         ),
-        SizedBox(height: 11,),
+        SizedBox(height: 11),
         Expanded(
           child: TabBarView(
             children: [
@@ -83,7 +94,6 @@ class Homepage extends StatelessWidget {
             ],
           ),
         ),
-        
       ],
     );
   }
