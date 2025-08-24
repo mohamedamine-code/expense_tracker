@@ -10,6 +10,7 @@ class Homepage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Color(0xFF4CAF50),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SafeArea(
@@ -29,33 +30,31 @@ class Homepage extends StatelessWidget {
 
   Widget _header(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           "Welcome To Expense Tracker",
           textAlign: TextAlign.center,
           style: mystyle(color: balck, fontWeight: bold, fontSize: 45),
         ),
-        SizedBox(height: 20),
-        Text(
-          "Welocme to the Expense Tracker, When you can ",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: balck),
-        ),
-        SizedBox(height: 5),
-
-        Text(
-          "track your dailu, weeklu and monthly,",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.black)
-        ),
-        SizedBox(height: 5),
-
-        Text(
-          "your expense and be econmic",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: balck),
-        ),
+        // SizedBox(height: 20),
+        // Container(
+        //   margin: EdgeInsets.symmetric(horizontal: 7),
+        //   padding: EdgeInsets.all(12),
+        //   decoration: BoxDecoration(
+        //     color: Colors.white,
+        //     borderRadius: BorderRadius.circular(12),
+        //   ),
+        //   child: Text(
+        //     "Welcome to the Expense Tracker, When you can track your daily, weekly and monthly,your expense and be economic",
+        //     textAlign: TextAlign.start,
+        //     style: TextStyle(
+        //       fontSize: 20,
+        //       fontWeight: FontWeight.w600,
+        //       color: Colors.black, // or use your variable 'balck'
+        //     ),
+        //   ),
+        // ),
 
         // SizedBox(height: 25),
       ],
@@ -65,6 +64,17 @@ class Homepage extends StatelessWidget {
   Widget _TabBar() {
     return Column(
       children: [
+        TabBar(
+          // indicator: BoxDecoration(),
+          indicatorColor:Colors.black,
+          labelStyle: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.bold),
+          tabs: [
+            
+            Tab(text: "Expense List",),
+            Tab(text: "Total List"),
+          ],
+        ),
+        SizedBox(height: 11,),
         Expanded(
           child: TabBarView(
             children: [
@@ -73,12 +83,7 @@ class Homepage extends StatelessWidget {
             ],
           ),
         ),
-        TabBar(
-          tabs: [
-            Tab(text: "Expense List"),
-            Tab(text: "Total List"),
-          ],
-        ),
+        
       ],
     );
   }
