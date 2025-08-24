@@ -1,4 +1,5 @@
 import 'package:expense_tracker/Style/Style.dart';
+import 'package:expense_tracker/Widgets/expenseList.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatelessWidget {
@@ -16,7 +17,7 @@ class Homepage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _header(),
-                SizedBox(height: 20),
+                SizedBox(height: 30),
                 Expanded(child: _TabBar()),
               ],
             ),
@@ -36,9 +37,15 @@ class Homepage extends StatelessWidget {
           style: mystyle(color: balck, fontWeight: bold, fontSize: 30),
         ),
         SizedBox(height: 20),
-        Text("Welocme to the Expense Tracker, When you can "),
-        Text("trak your dailu, weeklu and monthly,"),
-        Text("your expense and be econmic"),
+        Text("Welocme to the Expense Tracker, When you can ",style:mystyle(color: balck,fontSize: 15,fontWeight: FontWeight.normal)),
+        SizedBox(height: 5),
+
+        Text("track your dailu, weeklu and monthly,",style:mystyle(color: balck,fontSize: 15,fontWeight: FontWeight.normal)),
+        SizedBox(height: 5),
+
+        Text("your expense and be econmic",style:mystyle(color: balck,fontSize: 15,fontWeight: FontWeight.normal)),
+        // SizedBox(height: 25),
+
       ],
     );
   }
@@ -46,19 +53,20 @@ class Homepage extends StatelessWidget {
   Widget _TabBar() {
     return Column(
       children: [
+        
+        Expanded(
+          child: TabBarView(
+            children: [
+              Expanded(child: expenseList()),
+              Center(child: Text("2")),
+            ],
+          ),
+        ),
         TabBar(
           tabs: [
             Tab(text: "Expense List"),
             Tab(text: "Total List"),
           ],
-        ),
-        Expanded(
-          child: TabBarView(
-            children: [
-              Center(child: Text("1")),
-              Text("2"),
-            ],
-          ),
         ),
         
       ],
