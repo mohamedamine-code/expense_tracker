@@ -28,7 +28,7 @@ class Homepage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_)=>Addexpense()));
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>AddExpense()));
           },
           child: Icon(Icons.add,color: Colors.white,),
         ),
