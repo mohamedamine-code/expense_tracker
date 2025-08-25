@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<void> pickDate(BuildContext context) async {
+Future<DateTime> pickDate(BuildContext context) async {
   DateTime? pickedDate = await showDatePicker(
     context: context,
     initialDate: DateTime.now(),
@@ -27,9 +27,10 @@ Future<void> pickDate(BuildContext context) async {
       SnackBar(content: Text("Selected Date: ${pickedDate.toString()}")),
     );
   }
+  return pickedDate ?? DateTime.now();
 }
 
-Future<void> pickTime(BuildContext context) async {
+Future<TimeOfDay> pickTime(BuildContext context) async {
   TimeOfDay? pickedTime = await showTimePicker(
     context: context,
     initialTime: TimeOfDay.now(),
@@ -53,5 +54,6 @@ Future<void> pickTime(BuildContext context) async {
       SnackBar(content: Text("Selected Time: ${pickedTime.format(context)}")),
     );
   }
+  return pickedTime ?? TimeOfDay.now();
 }
 

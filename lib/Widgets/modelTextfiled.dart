@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class ModelTextField extends StatelessWidget {
   final String label;
   final String desc;
+  final TextEditingController controller;
 
   const ModelTextField({
-    super.key,
+    required this.controller,
     required this.desc,
     required this.label,
   });
@@ -28,6 +29,7 @@ class ModelTextField extends StatelessWidget {
 
         // Styled text field
         TextField(
+          controller: controller,
           decoration: InputDecoration(
             hintText: desc,
             filled: true,

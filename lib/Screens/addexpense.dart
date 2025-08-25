@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:expense_tracker/Widgets/calender.dart';
 import 'package:expense_tracker/Widgets/modelTextfiled.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class AddExpense extends StatefulWidget {
   const AddExpense({super.key});
@@ -12,6 +15,32 @@ class AddExpense extends StatefulWidget {
 class _AddExpenseState extends State<AddExpense> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
+  TextEditingController price = TextEditingController();
+  TextEditingController desc = TextEditingController();
+
+  Future<void> AddExpenseDB(
+    double price,
+    String description,
+    String date,
+    String time,
+  ) async {
+    final url = Uri.parse("http://localhost:5000/add-expense");
+    final response = await http.post(
+      url,
+      headers: {"content-Type": "application/json"},
+      body: jsonEncode({
+        "price": price,
+        "desciption": description,
+        "date": date,
+        "time": time,
+      }),
+    );
+    if (response.statusCode == 200) {
+      print("✅ Expense Added");
+    } else {
+      print("❌ Error: ${response.body}");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +58,16 @@ class _AddExpenseState extends State<AddExpense> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 12),
-              const ModelTextField(desc: "Enter Price", label: "Price :"),
+              ModelTextField(
+                desc: "Enter Price",
+                label: "Price :",
+                controller: price,
+              ),
               const SizedBox(height: 20),
-              const ModelTextField(
+              ModelTextField(
                 desc: "Enter Description",
                 label: "Description :",
+                controller: desc,
               ),
               const SizedBox(height: 25),
 
@@ -52,7 +86,9 @@ class _AddExpenseState extends State<AddExpense> {
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () async {
-                    await pickDate(context);
+                    setState(() async {
+                      selectedDate = await pickDate(context);
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -85,7 +121,9 @@ class _AddExpenseState extends State<AddExpense> {
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () async {
-                    await pickTime(context);
+                    setState(() async {
+                      selectedTime = await pickTime(context);
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -109,7 +147,13 @@ class _AddExpenseState extends State<AddExpense> {
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () {
-                    // TODO: handle submit
+                    AddExpenseDB(
+                      double.parse(price.text),
+                      desc.text,
+                      selectedDate!
+                          .toIso8601String(), // Date as ISO string (e.g., "2025-08-25T12:00:00.000Z")
+                      "${selectedTime!.hour}:${selectedTime!.minute.toString().padLeft(2, '0')}",
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
